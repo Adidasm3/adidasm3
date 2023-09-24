@@ -14,3 +14,10 @@ Here are some ideas to get you started:
 - 😄 Pronouns: ...
 - ⚡ Fun fact: ...
 -->
+
+
+1. Bryan Promish bspromish@my.waketech.edu
+2. This GitHub account was created to complete a lab assignment. 
+3. This GitHub repository was created to complete a class lab assignment. 
+4. To clone my repository to github desktop I clicked the plus button to clone the
+repository I created upon account creation on the web. 
