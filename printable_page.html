@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Printable Meal Plan</title>
+    <style>
+        /* CSS for print styling */
+        @media print {
+            /* Hide non-essential elements when printing */
+            header, footer, .non-printable {
+                display: none;
+            }
+
+            /* Additional print styles */
+            /* Add your print-specific styling here */
+        }
+    </style>
+</head>
+<body>
+    <!-- Content for printable page -->
+    <h1>Meal Plan</h1>
+
+    <?php
+    // Retrieve form data from POST request
+    $days = array("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday");
+    foreach ($days as $day) {
+        echo "<h2>$day</h2>";
+        echo "<p>Breakfast: " . $_POST[$day . "Breakfast"] . "</p>";
+        echo "<p>Snack 1: " . $_POST[$day . "Snack1"] . "</p>";
+        echo "<p>Lunch: " . $_POST[$day . "Lunch"] . "</p>";
+        echo "<p>Snack 2: " . $_POST[$day . "Snack2"] . "</p>";
+        echo "<p>Dinner: " . $_POST[$day . "Dinner"] . "</p>";
+    }
+    ?>
+
+    <!-- Non-printable button to go back to the form page -->
+    <button class="non-printable" onclick="goBack()">Go Back</button>
+
+    <!-- Include JavaScript -->
+    <script>
+        // Function to go back to the form page
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>
