@@ -64,7 +64,7 @@
     </div>
 
     <!-- Form -->
-	<form id="mealPlanForm" action="process_form.php" method="POST">
+	<form id="mealPlanForm" onsubmit="return createWindow(event)">
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" required><br><br>
 
@@ -175,32 +175,36 @@
     <!-- Include JavaScript -->
     <script src="projectJS.js"></script>
 	<script>
-        function downloadMealPlan() {
-            // Get the form data
-            var formData = new FormData(document.getElementById("mealPlanForm"));
-            var data = {};
-            formData.forEach(function(value, key){
-                data[key] = value;
-            });
-            // Convert data to JSON format
-            var json = JSON.stringify(data);
-            // Create a blob object
-            var blob = new Blob([json], {type: "application/json"});
-            // Create a download link
-            var url = URL.createObjectURL(blob);
-            var a = document.createElement("a");
-            a.href = url;
-            a.download = "meal_plan.json";
-            // Append the link to the body and click it programmatically
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        }
+    function createWindow(event) {
+        event.preventDefault(); // Prevent form submission
 
-        function printMealPlan() {
-            window.print();
-        }
+        // Create a new window
+        var newWindow = window.open("", "Meal Plan", "width=600,height=400");
+
+        // Get form data
+        var formData = new FormData(document.getElementById("mealPlanForm"));
+        var data = {};
+        formData.forEach(function(value, key){
+            data[key] = value;
+        });
+
+        // Construct HTML content for the window
+        var htmlContent = "<h1>Meal Plan</h1>";
+        htmlContent += "<p>Name: " + data['name'] + "</p>";
+        htmlContent += "<p>Email: " + data['email'] + "</p>";
+        htmlContent += "<p>Goal for the Week: " + data['goal'] + "</p>";
+
+        // Include meal plan inputs
+        htmlContent += "<h2>Meal Plan for the Week</h2>";
+        htmlContent += "<p><strong>Monday:</strong> Breakfast: " + data['mondayBreakfast'] + ", Snack 1: " + data['mondaySnack1'] + ", Lunch: " + data['mondayLunch'] + ", Snack 2: " + data['mondaySnack2'] + ", Dinner: " + data['mondayDinner'] + "</p>";
+        htmlContent += "<p><strong>Tuesday:</strong> Breakfast: " + data['tuesdayBreakfast'] + ", Snack 1: " + data['tuesdaySnack1'] + ", Lunch: " + data['tuesdayLunch'] + ", Snack 2: " + data['tuesdaySnack2'] + ", Dinner: " + data['tuesdayDinner'] + "</p>";
+        // Repeat the pattern for the rest of the days...
+
+        // Append the HTML content to the new window
+        newWindow.document.write(htmlContent);
+
+        return false;
+    }
 	</script>	
 </body>
 </html>
